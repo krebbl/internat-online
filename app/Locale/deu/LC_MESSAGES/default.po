@@ -1,0 +1,34 @@
+msgid "This field cannot be left blank"
+msgstr "Das Feld darf nicht leer sein"
+
+msgid "You are not authorized to access that location."
+msgstr "Sie sind nicht berechtigt auf diese Seite zuzugreifen!"
+
+msgid "January"
+msgstr "Januar"
+
+msgid "February"
+msgstr "Februar"
+
+msgid "March"
+msgstr "M&auml;rz"
+
+msgid "April"
+msgstr "April"
+
+msgid "May"
+msgstr "Mai"
+
+msgid "June"
+msgstr "Juni"
+
+msgid "July"
+msgstr "Juli"
+
+msgid "October"
+msgstr "Oktober"
+
+msgid "December"
+msgstr "Dezember"
+
+
