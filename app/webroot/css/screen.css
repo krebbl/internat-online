@@ -593,6 +593,14 @@ ul.final-steps li{
 	line-height: 1.5em;
 }
 
+table.billings .cw{
+    font-weight: bold;
+}
+
+table.billings input {
+    width: 50px;
+}
+
 /* ----------------------------------------------------- Icons */
 
 .only-icon{

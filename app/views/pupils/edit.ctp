@@ -326,10 +326,111 @@ echo $out;
     </fieldset>
 </div>
 <div <?= $this->element('pupil_form_fieldset_start', array('id' => 'bill_fieldset', 'active_tab' => $active_tab)) ?>>
-    <fieldset>
-        <legend>Rechnung</legend>
+    <?php
+    $time = time();
+    $currentYear = intval(date("Y", time()));
+    $currentCW = date("oW", time());
 
-    </fieldset>
+    function getBillData($bills, $cw, $type)
+    {
+
+        foreach ($bills as $bill) {
+            if ($bill['cw'] == $cw && $bill['type'] == $type) {
+                return $bill;
+            };
+        }
+
+        return null;
+    }
+
+    //    for ($year = $currentYear; $year > $currentYear - 3; $year--) {
+
+    ?>
+
+    <?php
+    $j = 0;
+    $numCws = 60;
+    for ($i = 0;
+         $i < $numCws;
+         $i++) {
+        $year = date("Y", $time);
+        $cw = date("W", $time);
+
+        ?>
+        <?php
+        if (!isset($lastYear) || $lastYear != $year) {
+            ?>
+            <fieldset>
+            <legend><?= $year ?></legend>
+            <div>
+            <table class="billings">
+
+            <tbody>
+            <tr>
+
+                <?php
+                for ($h = 0; $h < 4; $h++) {
+                    ?>
+                    <td>
+                        KW
+                    </td>
+                    <?php
+                    foreach ($this->data['TYPES'] as $ti => $type) {
+                        ?>
+
+                        <td><?= $type == "RENT" ? "Miete" : "Essen" ?></td>
+
+
+                    <?php
+                    }
+                }?>
+            </tr>
+
+
+        <?php } ?>
+
+
+        <?= $j % 4 == 0 ? "<tr>" : '' ?>
+
+        <?php
+
+        $id = $year . "-" . $cw;
+        ?>
+        <td class="cw">
+            <?= $cw ?>
+        </td>
+        <?php
+        foreach ($this->data['TYPES'] as $ti => $type) {
+            $bill = getBillData($this->data['PupilBill'], $id, $type);
+            $value = $bill ? $bill['value'] : '';
+            ?>
+            <td>
+                <input type="text" value="<?= $value ?>" id="<?= $type . '_' . $id ?>"
+                       tabIndex="<?= substr($year, 2) . $j . $ti ?>"
+                       name="data[PupilBill][<?= $type . '_' . $id ?>]">
+            </td>
+        <?php
+        }
+        ?>
+        <?= $j % 4 == 3 ? "</tr>" : '' ?>
+        <?php
+        $lastYear = $year;
+        $j++;
+        $time = $time - 7 * 60 * 60 * 24;
+        if (date('Y', $time) !== $year || $i == $numCws - 1) {
+            $j = 0;
+            ?>
+            </tbody>
+            </table>
+            </div>
+            </fieldset>
+        <?php
+        }
+    } ?>
+    <?php
+    //    }
+    ?>
+
 </div>
 </div>
 <?php
