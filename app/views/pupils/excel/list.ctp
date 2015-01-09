@@ -47,21 +47,25 @@ $headers = array(
     "food_on_account" => "Essen auf Rechnung"
 );
 
-$time = time();
+$time = time() - 7 * 24 * 60 * 60 * 51;
 $currentCw = date("Y-oW", time());
 $cws = array();
 
 for ($i = 0; $i < 52; $i++) {
-    $cw = date("o-W", $time);
-    $headers['RENT-' . $cw] = 'M-' . $cw;
-    $time -= 7 * 24 * 60 * 60;
-    $cws[] = $cw;
+    $cwYear = date("o-W", $time);
+    $cw = date("W", $time);
+    $y = date("y",$time);
+    $headers['RENT-' . $cwYear] = 'M ' . $cw . '.KW' . ' '.$y;
+    $time += 7 * 24 * 60 * 60;
+    $cws[] = $cwYear;
 }
-$time = time();
+$time = time() - 7 * 24 * 60 * 60 * 51;
 for ($i = 0; $i < 52; $i++) {
-    $cw = date("o-W", $time);
-    $headers['FOOD-' . $cw] = 'E-' . $cw;
-    $time -= 7 * 24 * 60 * 60;
+    $cwYear = date("o-W", $time);
+    $cw = date("W", $time);
+    $y = date("y", $time);
+    $headers['FOOD-' . $cwYear] = 'E ' . $cw . '.KW' . ' ' . $y;
+    $time += 7 * 24 * 60 * 60;
 }
 
 $col = 0;
@@ -109,7 +113,7 @@ foreach ($pupils as $pupil) {
         $pupil['Deposit']['paid_in'],
         $pupil['Deposit']['paid_out'],
         ($pupil['Pupil']['rent_on_account'] == 1) ? 'X' : '',
-        ($pupil['Pupil']['food_on_account'] == 1) ? 'X' : ''
+        ($pupil['Pupil']['food_on_account'] == 1) ? 'HP' : ($pupil['Pupil']['food_on_account'] == 2 ? 'VP' : '')
     );
 
     foreach ($cols as $val) {
