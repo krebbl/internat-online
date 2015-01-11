@@ -326,7 +326,7 @@ class PupilsController extends AppController
                 $this->data = $this->Pupil->read('*', $id);
             }
 
-            $this->data['TYPES'] = array('RENT', 'FOOD');
+            $this->data['TYPES'] = array('FOOD', 'RENT');
 
             $this->setDataForSchoolClassType(@$this->Pupil->data['Pupil']['school_class_id']);
         }
