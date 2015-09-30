@@ -1,7 +1,7 @@
 <?php
-	(empty($type)) ? $type = 'applications' : $type = $type; 
+	$type = date('o-W').'-schuler';
 	header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-	header("Content-Disposition: attachment; filename=\"slf2007-".$type."\""); 
+	header("Content-Disposition: attachment; filename=\"".$type.".xlsx\"");
 	header("Pragma: no-cache"); 
 	header("Expires: 0"); 
 

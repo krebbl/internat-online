@@ -44,7 +44,7 @@ var showCreateForm = function(el,name){
 
 var toggleForm = function(el){
 	var cb = $(el);
-	var checked = cb.attr('checked');
+	var checked = cb.attr('checked') && cb.attr('value') == "1";
 	if(checked){
 		showForm($('#addParentLink'));
 		$('#removeParentLink').hide();

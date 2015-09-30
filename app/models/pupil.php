@@ -205,7 +205,7 @@ class Pupil extends AppModel
 
         return $this->find('all', array(
                 'fields' => array(
-                    'Pupil.id, Pupil.lastname, Pupil.firstname, Pupil.male, Pupil.birthdate, Pupil.room, (DATE_ADD(Pupil.birthdate, INTERVAL 18 YEAR) < NOW()) as is_adult',
+                    'Pupil.id, Pupil.lastname, Pupil.firstname, Pupil.permanent, Pupil.male, Pupil.birthdate, Pupil.room, (DATE_ADD(Pupil.birthdate, INTERVAL 18 YEAR) < NOW()) as is_adult',
                     'Pupil.min_to_arrive, Pupil.min_to_depart, Pupil.food_on_account, Pupil.rent_on_account',
                     'Deposit.nr, Deposit.block, Deposit.paid_in, Deposit.paid_out',
                     'Address.id, Address.zipcode, Address.city',

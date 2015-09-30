@@ -43,6 +43,7 @@ if (!defined('PHP5')) {
 	Configure::getInstance();
 
 	$url = null;
+    setlocale(LC_ALL, "de_DE");
 
-	App::import('Core', array('Dispatcher'));
+    App::import('Core', array('Dispatcher'));
 ?>

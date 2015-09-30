@@ -6,20 +6,28 @@
 			'addressErrors' => @$errors['PupilParentAddress0'],
 			'removable' => false, 
 			'errors' => @$errors['PupilParent0']))?>
-	<div class="clearfix form-row">
-			<?= $form->input(
-							"splitted_custody", 
-							array(
-								'label' => 'Gemeinsames Sorgerecht bei getrenntlebenden Erziehungsberechtigten',
-								'before' => '<br/>',
-								'type' => 'checkbox',
-								'onChange' => 'toggleForm(this)',
-								'div' => array(
-									'class' => 'form-col checkbox'
-								)
-					)); ?>
-		</div>
 </fieldset>
+<div class="clearfix form-row">
+    <?=
+    $form->input(
+        "splitted_custody",
+        array(
+            'label' => 'Gemeinsames Sorgerecht bei getrenntlebenden Erziehungsberechtigten',
+            'before' => '<br/>',
+            'separator' => '<br/>',
+            'legend' => 'Sorgerecht',
+            'type' => 'radio',
+            'options' => array(
+                '0' => 'Gemeinsames Sorgerecht bei <strong>zusammenlebenden</strong> Sorgeberechtigten',
+                '1' => 'Gemeinsames Sorgerecht bei <strong>getrenntlebenden</strong> Sorgeberechtigten',
+                '2' => 'Alleiniges Sorgerecht des angegebenen Sorgeberechtigten'
+            ),
+            'onChange' => 'toggleForm(this)',
+            'div' => array(
+                'class' => ''
+            )
+        )); ?>
+</div>
 <fieldset>
 	<legend>Weiterer Vertreter</legend>
 	<?= $this->element('pupil_parent_form2',array(

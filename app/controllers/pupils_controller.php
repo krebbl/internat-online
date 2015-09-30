@@ -129,6 +129,8 @@ class PupilsController extends AppController
 
         if (!empty($this->data) && isset($this->data['submit'])) {
 
+            $this->data['Pupil']['splitted_custody'] = intval($this->data['Pupil']['splitted_custody']);
+
             $this->setDataForSchoolClassType($this->data['Pupil']['school_class_id']);
 
             $success = true;
@@ -337,6 +339,37 @@ class PupilsController extends AppController
         }
     }
 
+    function upload($pupil_id)
+    {
+        if (isset($this->data['Files']) && !empty($this->data['Files'])) {
+            $files = array_slice($this->data['Files'], 0, 1);
+            $images = array();
+            foreach ($files as $file) {
+                $ext = pathinfo($file['name'], PATHINFO_EXTENSION);
+                $file['name'] = $pupil_id . "." . $ext;
+                $images[] = $file;
+            }
+
+            $result = $this->uploadFiles('img/uploads/pupils', $images);
+
+            if ($result['errors']) {
+                $this->Session->setFlash('Fehler beim Hochladen', 'default', array(), 'error');
+                $this->redirect('pupils/' . $pupil_id);
+            } else if ($result['urls']) {
+                $url = array_pop($result['urls']);
+                $pupil = new Pupil(array('id' => $pupil_id));
+                $pupil->save(array('img_url' => $url));
+                $this->Session->setFlash('Bild erfolgreich hochgeladen', 'default', array(), 'success');
+
+                $this->redirect("edit/" . $pupil_id);
+            }
+        } else {
+            $this->redirect("edit/" . $pupil_id);
+        }
+
+
+    }
+
     private function isCreateRequest($data)
     {
         if (!isset($data)) return false;
@@ -389,6 +422,7 @@ class PupilsController extends AppController
 
             $this->set('pupils', $pupils);
             $this->layout = 'excel';
+            $this->type = "schuler";
             $this->render('excel/list');
             //$this->render('deposits');
         } else {

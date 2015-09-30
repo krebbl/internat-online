@@ -26,25 +26,26 @@ if ($sheet == null) {
 $row = 1;
 
 $headers = array(
+    "room" => "Raum",
+    "school_class" => "Ausbildungsrichtung",
     "lastname" => "Nachname",
     "firstname" => "Vorname",
+    "food_on_account" => "Essen auf Rechnung",
+    "rent_on_account" => "Miete auf Rechnung",
+    'permanent' => "Dauerbeleger",
     "gender" => "Geschlecht",
     "birthdate" => "Geburtstag",
     "is_adult" => "Über 18",
-    "room" => "Raum",
     "min_to_arrive" => "Hinfahrt (min)",
     "min_to_depart" => "Rückfahrt (min)",
     "zipcode" => "PLZ",
     "city" => "Ort",
     "school_name" => "Schule",
     "company_name" => "Firma",
-    "school_class" => "Ausbildungsrichtung",
     "deposit_block" => "Kautionsblock",
     "deposit_nr" => "Belegnr.",
     "deposit_paid_in" => "Eingezahlt",
     "deposit_paid_out" => "Ausgezahlt",
-    "rent_on_account" => "Miete auf Rechnung",
-    "food_on_account" => "Essen auf Rechnung"
 );
 
 $time = time() - 7 * 24 * 60 * 60 * 51;
@@ -95,25 +96,26 @@ foreach ($pupils as $pupil) {
     //$row = $row_counter[$name]+1;
     $col = 0;
     $cols = array(
+        $pupil['Pupil']['room'],
+        $pupil['SchoolClassType']['abbreviation'] . " " . substr($pupil[0]['start'], 2),
         $pupil['Pupil']['lastname'],
         $pupil['Pupil']['firstname'],
+        ($pupil['Pupil']['food_on_account'] == 1) ? 'HP' : ($pupil['Pupil']['food_on_account'] == 2 ? 'VP' : ''),
+        ($pupil['Pupil']['rent_on_account'] == 1) ? 'X' : '',
+        $pupil['Pupil']['permanent'] ? "X" : "",
         ($pupil['Pupil']['male'] == 1) ? 'M' : 'W',
         $pupil['Pupil']['birthdate'],
         ($pupil[0]['is_adult'] == 1) ? 'JA' : 'NEIN',
-        $pupil['Pupil']['room'],
         $pupil['Pupil']['min_to_arrive'],
         $pupil['Pupil']['min_to_depart'],
         $pupil['Address']['zipcode'],
         $pupil['Address']['city'],
         $pupil['School']['name'],
         $pupil['Company']['name'],
-        $pupil['SchoolClassType']['abbreviation'] . " " . substr($pupil[0]['start'], 2),
         $pupil['Deposit']['block'],
         $pupil['Deposit']['nr'],
         $pupil['Deposit']['paid_in'],
         $pupil['Deposit']['paid_out'],
-        ($pupil['Pupil']['rent_on_account'] == 1) ? 'X' : '',
-        ($pupil['Pupil']['food_on_account'] == 1) ? 'HP' : ($pupil['Pupil']['food_on_account'] == 2 ? 'VP' : '')
     );
 
     foreach ($cols as $val) {
