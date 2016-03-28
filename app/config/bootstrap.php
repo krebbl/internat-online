@@ -32,7 +32,9 @@
  *
  */
 
-error_reporting(E_ALL ^ E_DEPRECATED);
+error_reporting(E_ALL ^ E_DEPRECATED ^ E_STRICT);
+
+date_default_timezone_set('Europe/Berlin');
 
 /**
  * The settings below can be used to set additional paths to models, views and controllers.

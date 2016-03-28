@@ -96,9 +96,9 @@ class DATABASE_CONFIG
         'driver' => 'mysql',
         'persistent' => false,
         'host' => 'localhost',
-        'login' => 'dbu1048993',
-        'password' => 'milchbauer',
-        'database' => 'db1048993-internat',
+        'login' => 'INSERT',
+        'password' => 'INSERT',
+        'database' => 'INSERT',
         'prefix' => '',
         'encoding' => 'utf8'
     );

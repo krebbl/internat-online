@@ -11,6 +11,7 @@
 	?>
 	<?php $col_widths = array(
 					'30',
+					'30',
 					'120',
 					'120',
 					'30',
@@ -25,12 +26,13 @@
 					'100',
 					'120',
 					'40',
-					'80'
+					'50'
 				);
 		echo $this->element('table_header',
 			array(
 				'col_widths' => $col_widths,
 				'headers' => array(
+					'',
 					'Nachname',
 					'Vorname',
 					'GS',
@@ -66,6 +68,10 @@
 					
 					<td class="checkbox">
 						<?= $this->element('pupil_table_checkbox',array('pupil' => $pupil)); ?>
+					</td>
+					<td class="pupil-image"
+						style="background-image: url('/app/webroot/<?= $pupil['Pupil']['img_url'] ?>');">
+
 					</td>
 					<td>
 						<?= $pupil['Pupil']['lastname']; ?>

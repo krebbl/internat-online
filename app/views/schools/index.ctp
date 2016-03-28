@@ -18,19 +18,19 @@
 					'120',
 					'120'
 				);
-		echo $this->element('table_header',
-			array(
-				'col_widths' => $col_widths,
-				'headers' => array(
-					'Name',
-					'Abkürzung',
-					'Ort',
-					'Schüler',
-					'Bearbeiten'
-				)
-			)
-		)
 	?>
+    <?= $this->element('table_header',
+	array(
+		'col_widths' => $col_widths,
+		'headers' => array(
+			'Name',
+			'Abkürzung',
+			'Ort',
+			'Schüler',
+			'Bearbeiten'
+		)
+	)
+) ?>
 	<div class="table-wrapper">
 		<table id="ContentTable">
 			<?= $this->element('table_cols',array('widths' => $col_widths)); ?>

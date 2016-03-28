@@ -63,10 +63,10 @@
 			<div class="clearfix"></div>
 			<div id="main-wrapper" class="clearfix">
 				<h1><?= @$title_for_layout ?></h1>
-				<? @$session->flash('success'); ?>
-				<? @$session->flash('error'); ?>
+				<?= @$session->flash('success'); ?>
+				<?= @$session->flash('error'); ?>
 				<div id="content-wrapper">
-	    			<?=$content_for_layout?>
+	    			<?= $content_for_layout ?>
 				</div>
 			<div id="footer-wrapper" style="clear: both;"></div>
 		</div>

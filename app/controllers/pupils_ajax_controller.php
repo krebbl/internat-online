@@ -59,7 +59,7 @@ class PupilsAjaxController extends AppController {
 			);
 		
 			
-			$this->data = $this->Pupil->read('Pupil.id, Pupil.firstname, Pupil.lastname, Deposit.*', $p_id);
+			$this->data = $this->Pupil->read(array('Pupil.id', 'Pupil.firstname','Pupil.lastname, Deposit.*'), $p_id);
 			if($this->data['Deposit']['paid_out'] == '0001-01-01' || empty($this->data['Deposit']['paid_out'])){
 				$this->data['Deposit']['paid_out'] = date("Y-m-d");
 			}
@@ -98,7 +98,7 @@ class PupilsAjaxController extends AppController {
 					'belongsTo' => array('Pupil')
 				)
 			);
-			$this->data = $this->Pupil->read('Pupil.id, Pupil.firstname, Pupil.lastname, PupilCar.*', $p_id);
+			$this->data = $this->Pupil->read(array('Pupil.id', 'Pupil.firstname', 'Pupil.lastname', 'PupilCar.*'), $p_id);
 	
 			$this->render('/pupils/dialogs/car', FALSE);
     	}
@@ -124,7 +124,7 @@ class PupilsAjaxController extends AppController {
 					'hasOne' => array('Address')
 				)	
 			);
-			$this->data = $this->Pupil->read('Pupil.id, Pupil.firstname, Pupil.lastname, Pupil.room', $p_id);
+			$this->data = $this->Pupil->read(array('Pupil.id', 'Pupil.firstname', 'Pupil.lastname','Pupil.room'), $p_id);
 			
 			$this->render('/pupils/dialogs/room', FALSE);
     	}
@@ -156,7 +156,7 @@ class PupilsAjaxController extends AppController {
 				)	
 			);
 			
-			$this->data = $this->Pupil->read('Pupil.id, Pupil.firstname, Pupil.lastname', $p_id);
+			$this->data = $this->Pupil->read(array('Pupil.id', 'Pupil.firstname', 'Pupil.lastname'), $p_id);
 			$this->set(
 				'PupilComments',
 				$this->PupilComment->find('all', 
@@ -190,7 +190,7 @@ class PupilsAjaxController extends AppController {
 					'hasOne' => array('Address')
 				)	
 			);
-			$this->data = $this->Pupil->read('Pupil.id, Pupil.firstname, Pupil.lastname, Pupil.checked_out, Pupil.banished', $p_id);
+			$this->data = $this->Pupil->read(array('Pupil.id', 'Pupil.firstname', 'Pupil.lastname', 'Pupil.checked_out', 'Pupil.banished'), $p_id);
 			
 			$this->render('/pupils/dialogs/check_out', FALSE);
     	}

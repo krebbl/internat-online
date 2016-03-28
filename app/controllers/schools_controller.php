@@ -57,7 +57,7 @@ class SchoolsController extends AppController {
 				$this->History->goBack(0);
 			}
 		}else if($id != 0){
-			$this->data = $this->School->read('School.*, Address.*', $id);	
+			$this->data = $this->School->read(array('School.*','Address.*'), $id);
 		}
 	}
 	

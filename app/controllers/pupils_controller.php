@@ -9,7 +9,6 @@ class PupilsController extends AppController
     function beforeFilter()
     {
         parent::beforeFilter();
-        Configure::write('debug', 0);
     }
 
     function index()
@@ -325,7 +324,7 @@ class PupilsController extends AppController
                 )
             );
             if ($id > 0) {
-                $this->data = $this->Pupil->read('*', $id);
+                $this->data = $this->Pupil->read(array('fields' => array()), $id);
             }
 
             $this->data['TYPES'] = array('FOOD', 'RENT');

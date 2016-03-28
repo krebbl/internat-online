@@ -157,11 +157,15 @@ li.hr{
 }
 
 #main-wrapper{
-	padding: 30px 20px 0px 20px;
+	padding: 30px 20px 0 20px;
 }
 
 #heading-wrapper{
 	
+}
+
+#content-wrapper {
+	position: relative;
 }
 
 h1{
@@ -599,6 +603,41 @@ table.billings .cw{
 
 table.billings input {
     width: 50px;
+}
+
+.profile-image {
+	position: absolute;
+	right: -206px;
+	top: 25px;
+}
+
+.image-upload input {
+	position: absolute;
+	top: 0;
+	right: 0;
+	margin: 0;
+	padding: 0;
+	font-size: 20px;
+	cursor: pointer;
+	opacity: 0;
+	filter: alpha(opacity=0);
+}
+
+.image-upload label {
+	border-color: #c6c6c6 #aaaaaa #8f8f8f #aaaaaa;
+	background-color: white;
+	border-width: 1px;
+	border-style: solid;
+	font-size: 11px;
+	padding: 5px 20px;
+	width: auto;
+	margin: auto;
+}
+
+.pupil-image {
+	background-repeat: no-repeat;
+	background-position: left;
+	background-size: auto 100%;
 }
 
 /* ----------------------------------------------------- Icons */

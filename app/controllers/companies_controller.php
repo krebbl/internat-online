@@ -8,7 +8,7 @@ class CompaniesController extends AppController {
 	function index() {
 		$this->pageTitle = 'Firmen';
 		
-		$this->School->recursive = 2;
+		$this->Company->recursive = 1;
 		$this->set('companies',$this->Company->findAll(null,null,array('Company.name ASC')));
 	}
 	
@@ -61,7 +61,7 @@ class CompaniesController extends AppController {
 				$this->History->goBack(0);
 			}
 		}else if($id != 0){
-			$this->data = $this->Company->read('Company.*, Address.*', $id);	
+			$this->data = $this->Company->read(array('Company.*', 'Address.*'), $id);
 		}
 	}
 	
