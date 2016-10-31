@@ -12,6 +12,19 @@
 					$form->input($address_path.'.add', array('type'=>'hidden')):''; ?>
 			<?= (isset($address['remove']))?
 					$form->input($address_path.'.remove', array('type'=>'hidden')):''; ?>
+			<? if($with_contact) { ?>
+				<div class="clearfix form-row">
+			<?= $form->input(
+				$address_path . '.contact',
+				array(
+					'label' => 'Kontakt',
+					'div' => array(
+						'class' => 'form-col',
+					),
+					'after' => $this->element('field_error', array('message' => @$errors['contact']))
+				)) ?>
+				</div>
+			<? } ?>
 			<?= $form->input(
 					$address_path.'.street',
 					array(

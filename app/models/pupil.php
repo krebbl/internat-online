@@ -48,6 +48,12 @@ class Pupil extends AppModel
             'foreignKey' => 'contact_id',
             'dependent' => true
         ),
+        'InvoiceAddress' => array(
+            'className' => 'Address',
+            'conditions' => array('InvoiceAddress.contact_type' => 'pupil_invoice'),
+            'foreignKey' => 'contact_id',
+            'dependent' => true
+        ),
         'Deposit' => array(
             'dependent' => true
         ),

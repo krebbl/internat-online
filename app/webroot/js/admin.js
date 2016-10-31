@@ -60,6 +60,8 @@ var filterTimeOutId = 0;
 var visibleRowsLabel = false;
 var filterMap = new Array();
 var doFilter = function(filterId,filterFnc){
+	$('input.default-checkbox').attr("checked", false);
+
 	var s = $('#filter').val();
 	if (!visibleRowsLabel) {
 		visibleRowsLabel = $('#vr-label');

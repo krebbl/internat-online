@@ -3,6 +3,7 @@
 class Address extends AppModel {
     var $name = 'Address';
 	var $validate = array(
+		'contact' => array(),
 		'street' => array('notempty'),
 		'city' => array('notempty'),
 		'home_nr' => array('notempty'),

@@ -333,6 +333,21 @@ echo $out;
         </fieldset>
     </div>
     <div <?= $this->element('pupil_form_fieldset_start', array('id' => 'bill_fieldset', 'active_tab' => $active_tab)) ?>>
+
+        <fieldset>
+            <legend>Rechnungsadresse</legend>
+            <div class="clearfix">
+                <?=
+                $this->element('address_form', array(
+                    'with_contact' => true,
+                    'address_is_set' => true,
+                    'removable' => false,
+                    'address_path' => "InvoiceAddress",
+                    'address' => $this->data['InvoiceAddress']
+                )) ?>
+            </div>
+        </fieldset>
+
         <?php
         $time = time();
         $currentYear = intval(date("Y", time()));
@@ -340,7 +355,9 @@ echo $out;
 
         function getBillData($bills, $cw, $type)
         {
-
+            if(array_key_exists($type . '_' . $cw,$bills)) {
+                return array('value' => $bills[$type . '_' . $cw]);
+            }
             foreach ($bills as $bill) {
                 if ($bill['cw'] == $cw && $bill['type'] == $type) {
                     return $bill;
@@ -410,6 +427,7 @@ echo $out;
             </td>
             <?php
             foreach ($this->data['TYPES'] as $ti => $type) :
+
                 $bill = getBillData($this->data['PupilBill'], $id, $type);
                 $value = $bill ? $bill['value'] : '';
                 ?>
