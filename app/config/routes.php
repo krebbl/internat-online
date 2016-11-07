@@ -37,6 +37,10 @@
  */
 	Router::connect('/admin', array('controller' => 'pages', 'action' => 'display'));
 	Router::connect('/admin/*', array('controller' => 'pages', 'action' => 'display'));
-	
-	Router::parseExtensions('json');
+
+	Router::connect('/pupils/current/:cw', array('controller' => 'pupils', 'action' => 'current'));
+	Router::connect('/pupils/current', array('controller' => 'pupils', 'action' => 'current'));
+
+
+Router::parseExtensions('json');
 ?>

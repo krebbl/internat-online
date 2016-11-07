@@ -57,11 +57,10 @@ class PupilsController extends AppController
 
     function current()
     {
-        $currentCW = date('W');
+        $currentCW = date('W'); ;
         // set semesters
-        if (!$this->data['cw']) {
-            $this->data['cw'] = $currentCW;
-        }
+        $this->data['cw'] = isset($this->params['cw']) ? $this->params['cw'] : $currentCW;
+
         $this->set('currentSemester', $this->SchoolSemester->findCurrentSemester());
 
         $schoolClassIds = $this->SchoolClass->findAllIdsByCalendarWeek($this->data['cw']);
@@ -270,7 +269,7 @@ class PupilsController extends AppController
 
                 foreach ($bills as $bill) {
                     $key = $bill['PupilBill']['type'] . '_' . $bill['PupilBill']['cw'];
-                    $value = $this->data['PupilBill'][$key];
+                    $value = @$this->data['PupilBill'][$key];
                     if (isset($value) && !empty($value)) {
                         $bill['PupilBill']['value'] = $value;
                         $bill['PupilBill']['id'] = intval($bill['PupilBill']['id']);
