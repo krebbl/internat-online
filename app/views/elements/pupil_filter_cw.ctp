@@ -5,5 +5,5 @@
 			value="<?= $i ?>"
 			<?= (isset($this->data['cw']) && $i == $this->data['cw'])?'selected="selected"':''; ?>
 		><?= $i ?>. KW <?= ($i == $current_cw)?'(Aktuell)':'' ?></option>
-	<? } ?>
+	<?php } ?>
 </select>
