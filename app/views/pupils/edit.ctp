@@ -324,7 +324,7 @@ echo $out;
                         <?= $PupilComment['created'] ?> von
                         <?= $PupilComment['User']['username'] ?>
                     </div>
-                <?php
+                    <?php
                 endforeach;
             } else {
                 ?>
@@ -355,7 +355,7 @@ echo $out;
 
         function getBillData($bills, $cw, $type)
         {
-            if(array_key_exists($type . '_' . $cw,$bills)) {
+            if (array_key_exists($type . '_' . $cw, $bills)) {
                 return array('value' => $bills[$type . '_' . $cw]);
             }
             foreach ($bills as $bill) {
@@ -372,48 +372,49 @@ echo $out;
 
         <?php
         $j = 0;
-        $numCws = 60;
+        $numCws = 30;
+        $time -= ($numCws - 1) * (7 * 60 * 60 * 24);
         for ($i = 0;
-        $i < $numCws;
-        $i++) {
-        $year = date("Y", $time);
-        $cw = date("W", $time);
+             $i < $numCws;
+             $i++) {
+            $year = date("Y", $time);
+            $cw = date("W", $time);
 
-        ?>
-        <?php
-        if (!isset($lastYear) || $lastYear != $year) {
             ?>
-            <fieldset>
-            <legend><?= $year ?></legend>
-            <div>
-            <table class="billings">
-
-            <tbody>
-        <tr>
-
             <?php
-        for ($h = 0;
-            $h < 4;
-            $h++) :
-            ?>
-            <td>
-                KW
-            </td>
-            <?php
-            foreach ($this->data['TYPES'] as $ti => $type) :
+            if (!isset($lastYear) || $lastYear != $year) {
                 ?>
+                <fieldset>
+                <legend><?= $year ?></legend>
+                <div>
+                <table class="billings">
 
-                <td><?= $type == "RENT" ? "Miete" : "Essen" ?></td>
+                <tbody>
+                <tr>
+
+                    <?php
+                    for ($h = 0;
+                         $h < 4;
+                         $h++) :
+                        ?>
+                        <td>
+                            KW
+                        </td>
+                        <?php
+                        foreach ($this->data['TYPES'] as $ti => $type) :
+                            ?>
+
+                            <td><?= $type == "RENT" ? "Miete" : "Essen" ?></td>
 
 
-            <?php
-            endforeach;
-            endfor
-            ?>
-        </tr>
+                            <?php
+                        endforeach;
+                    endfor
+                    ?>
+                </tr>
 
 
-        <?php } ?>
+            <?php } ?>
 
 
             <?= $j % 4 == 0 ? "<tr>" : '' ?>
@@ -436,14 +437,14 @@ echo $out;
                            tabIndex="<?= substr($year, 2) . $j . $ti ?>"
                            name="data[PupilBill][<?= $type . '_' . $id ?>]">
                 </td>
-            <?php
+                <?php
             endforeach
             ?>
             <?= $j % 4 == 3 ? "</tr>" : '' ?>
             <?php
             $lastYear = $year;
             $j++;
-            $time = $time - 7 * 60 * 60 * 24;
+            $time = $time + 7 * 60 * 60 * 24;
             if (date('Y', $time) !== $year || $i == $numCws - 1) {
                 $j = 0;
                 ?>
@@ -451,7 +452,7 @@ echo $out;
                 </table>
                 </div>
                 </fieldset>
-            <?php
+                <?php
             }
         } ?>
         <?php
