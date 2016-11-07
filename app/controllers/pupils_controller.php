@@ -3,7 +3,7 @@
 class PupilsController extends AppController
 {
     var $uses = array(
-        "Pupil", "PupilCar", "SchoolSemester", "InvoiceAddress", "SchoolClass", "SchoolClassType", "Deposit", "Nationality", "County", "PupilParent", "PupilComment", "Address", "School", "Company", 'PupilBill');
+        "Pupil", "PupilCar", "SchoolSemester", "SchoolClass", "SchoolClassType", "Deposit", "Nationality", "County", "PupilParent", "PupilComment", "Address", "School", "Company", 'PupilBill');
     var $name = 'Pupils';
 
     function beforeFilter()
@@ -208,25 +208,6 @@ class PupilsController extends AppController
                 $removeParent[$i] = $this->isRemoveRequest(@$this->data['PupilParent'][$i]);
             }
 
-            $saveInvoice = true;
-            # Invoice Address Validation
-            if($this->data['InvoiceAddress']) {
-                $invoiceId = $this->data['InvoiceAddress']['id'];
-                unset($this->data['InvoiceAddress']['id']);
-                unset($this->data['InvoiceAddress']['add']);
-
-                $values = array_values($this->data['InvoiceAddress']);
-                $this->InvoiceAddress = new Address();
-                if(strlen(implode("", $values)) > 0) {
-                    $this->InvoiceAddress->createAndValidate(
-                        $this->data['InvoiceAddress'],
-                        $validationErrors['InvoiceAddress'],
-                        $success);
-                } else {
-                    $saveInvoice = false;
-                }
-            }
-
             if ($success) {
                 #TODO Save the shit
                 $this->Pupil->save();
@@ -278,17 +259,6 @@ class PupilsController extends AppController
                     }
 
                 }
-
-                if($saveInvoice) {
-                    $this->InvoiceAddress->data['Address']['contact_type'] = 'pupil_invoice';
-                    $this->InvoiceAddress->data['Address']['contact_id'] = $p_id;
-                    $this->InvoiceAddress->save();
-                } else {
-                    if($invoiceId) {
-                        $this->InvoiceAddress->remove($invoiceId);
-                    }
-                }
-
 
                 $bills = $this->PupilBill->find(
                     'all',

@@ -333,21 +333,7 @@ echo $out;
         </fieldset>
     </div>
     <div <?= $this->element('pupil_form_fieldset_start', array('id' => 'bill_fieldset', 'active_tab' => $active_tab)) ?>>
-
-        <fieldset>
-            <legend>Rechnungsadresse</legend>
-            <div class="clearfix">
-                <?=
-                $this->element('address_form', array(
-                    'with_contact' => true,
-                    'address_is_set' => true,
-                    'removable' => false,
-                    'address_path' => "InvoiceAddress",
-                    'address' => $this->data['InvoiceAddress']
-                )) ?>
-            </div>
-        </fieldset>
-
+        
         <?php
         $time = time();
         $currentYear = intval(date("Y", time()));
