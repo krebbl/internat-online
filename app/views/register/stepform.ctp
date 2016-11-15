@@ -1,6 +1,6 @@
 <p><b>Hinweis</b>:Die Anmeldung erfolgt einmalig und ist für die gesamte Ausbildungsdauer gültig. Die Felder mit * (Sternchen) sind optional.</p>	
 <br/>
-<? @$session->flash(); ?>
+<?= @$session->flash(); ?>
 <div id="form-status">
 	<table cellspacing="0">
 		<colgroup>

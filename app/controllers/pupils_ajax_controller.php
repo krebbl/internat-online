@@ -67,6 +67,14 @@ class PupilsAjaxController extends AppController {
 			$this->render('/pupils/dialogs/deposit', FALSE);
     	}
     }
+
+	function invoiceDialog() {
+		$ids = $this->params['url']["ids"];
+		if(isset($ids)) {
+			$this->data['Pupil']["ids"] = $ids;
+		}
+		$this->render('/pupils/dialogs/invoice', FALSE);
+	}
     
      function carDialog($p_id = 0){
      	$this->loadModel("PupilCar");

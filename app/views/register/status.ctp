@@ -1,4 +1,4 @@
-<? @$session->flash(); ?>
+<?= @$session->flash(); ?>
 <div id="form-status">
 	<table cellspacing="0">
 		<colgroup>

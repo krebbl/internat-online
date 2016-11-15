@@ -46,11 +46,11 @@ class AppController extends Controller {
 		$this->redirect($this->createAction);
 	}
 	
-	function goBack(){
+	public function goBack(){
 		$this->History->goBack();
 	}
 	
-	function listAction() {
+	public function listAction() {
 		if(!empty($this->data)){
 			if(isset($this->data['create'])){
 				$this->callCreateAction();
@@ -64,12 +64,12 @@ class AppController extends Controller {
 	}
 	
 	protected function getSemesterFromRequest(){
-		$id = $this->data['semesterId'];
+		$id = @$this->params['url']['semesterId'];
 		$semester = $this->SchoolSemester->findSemesterByIdOrGetCurrent($id);
 		if(count($semester) == 0){
 			return false;
 		}else{
-			$this->data['semesterId'] = $semester['SchoolSemester']['id'];
+			$this->set('semesterId', $semester['SchoolSemester']['id']);
 		}
 		return $semester;
 	}

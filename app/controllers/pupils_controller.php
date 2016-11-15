@@ -11,6 +11,42 @@ class PupilsController extends AppController
         parent::beforeFilter();
     }
 
+    public function listAction()
+    {
+        if (!empty($this->data) && isset($this->data['generateInvoice'])) {
+            $this->generateInvoice();
+            return;
+        }
+
+        parent::listAction();
+    }
+
+    private function applyCompanyFilter ($allPupils) {
+        $companyIds = array();
+        foreach ($allPupils as $p) {
+            $companyIds[] = $p['Pupil']['company_id'];
+        }
+
+        $pupils = $allPupils;
+        $urlData = $this->params['url'];
+        if (isset($urlData) && !empty($urlData['companyId'])) {
+            $pupils = array();
+            foreach ($allPupils as $p) {
+                if ($p['Pupil']['company_id'] == $urlData['companyId']) {
+                    $pupils[] = $p;
+                }
+            }
+            $this->set('companyId', $urlData['companyId']);
+        }
+
+
+        $where = array('Company.id' => $companyIds);
+
+        $this->set('companies', $this->Company->find('all', array('conditions' => $where, 'fields' => array('Company.id', 'Company.name'), 'order' => array('Company.name'))));
+
+        $this->set('pupils', $pupils);
+    }
+
     function index()
     {
 
@@ -24,9 +60,9 @@ class PupilsController extends AppController
         // $schoolClassIds = $this->SchoolClass->findAllIdsBySemester($semester);
         // $pupils = $this->Pupil->findAllBySchoolClassIDs($schoolClassIds);
 
-        $pupils = $this->Pupil->findAllBySemester($semester);
+        $allPupils = $this->Pupil->findAllBySemester($semester);
 
-        $this->set('pupils', $pupils);
+        $this->applyCompanyFilter($allPupils);
         //$timer = new TimerHelper();
         //$this->set('timer',$timer);
         //$timer->start("rendering");
@@ -48,7 +84,7 @@ class PupilsController extends AppController
 
         $pupils = $this->Pupil->findAllBySemester($semester, TRUE);
 
-        $this->set('pupils', $pupils);
+        $this->applyCompanyFilter($pupils);
         //$timer = new TimerHelper();
         //$this->set('timer',$timer);
         //$timer->start("rendering");
@@ -65,8 +101,7 @@ class PupilsController extends AppController
 
         $schoolClassIds = $this->SchoolClass->findAllIdsByCalendarWeek($this->data['cw']);
         $pupils = $this->Pupil->findAllBySchoolClassIDs($schoolClassIds);
-
-        $this->set('pupils', $pupils);
+        $this->applyCompanyFilter($pupils);
         $this->set('current_cw', $currentCW);
         $this->pageTitle = 'Belegung für die ' . $this->data['cw'] . '.KW';
     }
@@ -407,16 +442,19 @@ class PupilsController extends AppController
 
             $this->Session->setFlash('Schüler erfolgreich gelöscht', 'default', array(), 'success');
             $this->History->goBack(0);
+        } else {
+            $this->History->goBack(0);
         }
     }
 
-    function export()
+    public function export()
     {
         Configure::write('debug', 0);
 
         $this->History->saveHistory = false;
 
         $ids = $this->data['Pupil']['ids'];
+        $this->set('filename', date('o-W') . '-schuler');
         if (!empty($ids)) {
             $pupils = $this->Pupil->findAllByIDs($ids);
 
@@ -429,6 +467,37 @@ class PupilsController extends AppController
             $this->Session->setFlash('Nichts ausgewählt', 'default', array(), 'error');
             $this->History->goBack(0);
         }
+
+
+    }
+
+    public function generateInvoice() {
+        Configure::write('debug', 0);
+        $this->History->saveHistory = false;
+
+        $ids = $this->data['Pupil']['ids'];
+        if(is_string($ids)) {
+            $ids = explode(",",$ids);
+        }
+        if(!empty($ids)) {
+            $this->set('filename', 'Rechnung_' . date("Y") . "_" . $this->data["Invoice"]["nr"]);
+
+            $pupils = $this->Pupil->findAllByIDs($ids);
+
+            $this->set('pupils', $pupils);
+            $this->set('type', $this->data['Invoice']["type"]);
+            $this->set('invoiceNr', $this->data["Invoice"]["nr"]);
+            $this->set('invoiceStart', $this->data["Invoice"]["start"]);
+            $this->set('invoiceEnd', $this->data["Invoice"]["end"]);
+
+            $this->layout = 'excel';
+            $this->type = "schuler";
+            $this->render('excel/invoice');
+        } else {
+//            $this->Session->setFlash('Nichts ausgewählt', 'default', array(), 'error');
+//            $this->History->goBack(0);
+        }
+
 
 
     }

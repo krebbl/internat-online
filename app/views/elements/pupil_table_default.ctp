@@ -2,7 +2,9 @@
 	<?php
 		echo $this->element('action_box',
 			array(
-				'elements' => array('<input type="submit" name="data[export]" value="Exportieren"/>'),
+				'elements' => array(
+					'<input type="submit" name="data[export]" value="Exportieren"/>',
+					'<input type="submit" name="data[generateInvoice]" onclick="event.preventDefault(); showInvoiceDialog();" value="Rechnung erstellen"/>'),
 				'add' => true
 			)
 		);

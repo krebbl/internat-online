@@ -1,6 +1,6 @@
 <p><b>Hinweis</b>: Hier kannst du nachträglich deinen Anmeldebogen ausdrucken.</p>	
 <br/>
-<? @$session->flash(); ?>
+<?= @$session->flash(); ?>
 <?= $form->create('Print', array('url' => array('controller' => 'print', 'action' =>'bypw'))); ?>
 <div class="form-body">
 	<fieldset>

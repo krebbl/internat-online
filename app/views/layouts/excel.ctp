@@ -1,5 +1,5 @@
 <?php
-	$type = date('o-W').'-schuler';
+	$type = $filename;
 	header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
 	header("Content-Disposition: attachment; filename=\"".$type.".xlsx\"");
 	header("Pragma: no-cache"); 
