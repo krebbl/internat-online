@@ -28,6 +28,12 @@ class Company extends AppModel {
 			'exclusive' => '',
 			'finderQuery' => '',
 			'counterQuery' => ''
+		),
+		'InvoiceAddress' => array(
+			'className'	=> 'Address',
+			'foreignKey' => 'contact_id',
+			'dependent' => true,
+			'conditions' => array('InvoiceAddress.contact_type' => 'company_invoice')
 		)
 	);
 	

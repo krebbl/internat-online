@@ -60,7 +60,7 @@
 					array(
 						'label' => 'Rechnungstyp',
 						'type' => 'select',
-						'options' => array('FOOD' => "Essen", 'RENT' => "Miete", "BOTH" => "Alles"),
+						'options' => array('RENT' => "Miete", 'FOOD' => "Essen", "BOTH" => "Alles"),
 						'div' => array(
 							'class' => 'form-col',
 						)
@@ -68,6 +68,24 @@
 
 			</div>
 		</fieldset>
+		<?php if(isset($addressOptions)){ ?>
+		<fieldset>
+			<div class="">
+				<?= $form->input(
+					'Invoice.address',
+					array(
+						'label' => 'Rechnungsadresse',
+						'type' => 'select',
+						'options' => $addressOptions,
+						'div' => array(
+							'class' => 'form-col',
+							'style' => 'width: 100%'
+						)
+					)); ?>
+
+			</div>
+		</fieldset>
+		<?php } ?>
 	</div>
 	<div class="clearfix"></div>
 	<div class="form-buttons">

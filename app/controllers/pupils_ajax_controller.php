@@ -1,7 +1,7 @@
 <?php
 class PupilsAjaxController extends AppController {
 	 var $uses = array(
-    	"Pupil");
+    	"Pupil", "Address", "Company");
 		
 	function beforeFilter(){
 		parent::beforeFilter();
@@ -71,6 +71,28 @@ class PupilsAjaxController extends AppController {
 	function invoiceDialog() {
 		$ids = $this->params['url']["ids"];
 		if(isset($ids)) {
+
+			$pupils = $this->Pupil->findAllById($ids, array());
+			$companyIds = array();
+
+			foreach ($pupils as $p) {
+				$companyIds[] = $p['Pupil']['company_id'];
+			}
+
+			$addresses = $this->Address->find('all', array(
+				'fields' => array('Address.*', 'Company.name'),
+				'joins' => array('LEFT JOIN companies Company ON Company.id = contact_id'),
+				'conditions' => array(
+					'contact_id' => $companyIds,
+					'contact_type' => array('company_invoice', 'company'))
+			));
+			$addressOptions = array();
+			foreach ($addresses as $address) {
+				$contact = !empty($address['Address']['contact']) ? $address['Address']['contact'] : $address['Company']['name'];
+				$addressOptions[$address['Address']['id']] = ($contact). " / " . $address['Address']['street'] . " in " . $address['Address']['zipcode'] . " " . $address['Address']['city'];
+			}
+			
+			$this->set('addressOptions', $addressOptions);
 			$this->data['Pupil']["ids"] = $ids;
 		}
 		$this->render('/pupils/dialogs/invoice', FALSE);

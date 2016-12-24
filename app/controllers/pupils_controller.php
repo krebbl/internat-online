@@ -483,6 +483,19 @@ class PupilsController extends AppController
             $this->set('filename', 'Rechnung_' . date("Y") . "_" . $this->data["Invoice"]["nr"]);
 
             $pupils = $this->Pupil->findAllByIDs($ids);
+            
+            if(isset($this->data['Invoice']["address"])) {
+                
+                $address = $this->Address->find('first', array(
+                    'fields' => array('Address.*', 'Company.name'),
+                    'joins' => array('LEFT JOIN companies Company ON Company.id = contact_id'),
+                    'conditions' => array(
+                        'Address.id' => $this->data['Invoice']["address"]
+                    )
+                ));
+                
+                $this->set('address', $address);
+            }
 
             $this->set('pupils', $pupils);
             $this->set('type', $this->data['Invoice']["type"]);
