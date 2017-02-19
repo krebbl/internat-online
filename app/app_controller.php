@@ -86,10 +86,11 @@ class AppController extends Controller {
 		if(!empty($user)){
 			$group = new Group();
 			$group = $group->findById($user['User']['group_id']);
-			if($group['Group']['name'] == 'admins'){
+			if($group['Group']['name'] == 'admins' || $group['Group']['name'] == 'secretaries'){
 				$this->Auth->allow('*');
 			}
 		}
+		$this->set('user', $user);
 		$this->set('authorized',!empty($user));
 		$this->History->startup($this);
 
