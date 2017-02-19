@@ -43,6 +43,8 @@ if(isset($address)) {
         $contact = $address['Company']['name'];
     }
     $sheet->getCell("A5")->setValue($contact);
+    $sheet->getStyle('A5')->getAlignment()->setWrapText(true);
+
     $sheet->getCell("A6")->setValue($address['Address']['street']);
     $sheet->getCell("A7")->setValue($address['Address']['zipcode'] . " " . $address['Address']['city']);
 }

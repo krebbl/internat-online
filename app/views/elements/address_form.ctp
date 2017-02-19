@@ -18,6 +18,8 @@
 				$address_path . '.contact',
 				array(
 					'label' => 'Kontakt',
+					'type' => 'textarea',
+					'rows' => 2,
 					'div' => array(
 						'class' => 'form-col',
 					),
